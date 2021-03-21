@@ -29,8 +29,8 @@ public class CategoriaResource {
 	}
 	
 	public List<Categoria> testeOne() {
-		Categoria cat1 = new Categoria("Informática",1);
-		Categoria cat2 = new Categoria("Escritório",2);
+		Categoria cat1 = new Categoria(1,"Informática");
+		Categoria cat2 = new Categoria(2,"Escritório");
 		
 		List<Categoria> list = new ArrayList<>();
 		list.add(cat1);
