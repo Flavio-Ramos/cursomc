@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.flavioramos.cursomc.domain.Categoria;
+import com.flavioramos.cursomc.domain.Cidade;
+import com.flavioramos.cursomc.domain.Estado;
 import com.flavioramos.cursomc.domain.Produto;
 import com.flavioramos.cursomc.repositories.CategoriaRepository;
+import com.flavioramos.cursomc.repositories.CidadeRepository;
+import com.flavioramos.cursomc.repositories.EstadoRepository;
 import com.flavioramos.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -21,6 +25,12 @@ public class CursomcApplication implements CommandLineRunner {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@Autowired
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
@@ -28,8 +38,8 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Categoria informatca = new Categoria(null, "Informática");
-		Categoria Esritorio = new Categoria(null, "Escritório");
+		Categoria informatica = new Categoria(null, "Informática");
+		Categoria escritorio = new Categoria(null, "Escritório");
 		/*
 		 * Categoria musica = new Categoria(null, "Música"); Categoria esportes = new
 		 * Categoria(null, "Esportes"); Categoria limpeza = new Categoria(null,
@@ -47,10 +57,9 @@ public class CursomcApplication implements CommandLineRunner {
 		 * "Teclado", 350.00); Produto bola = new Produto(null, "Bola", 95.00); Produto
 		 * redeDeVolei = new Produto(null, "Rede de Volêi", 74.00);
 		 */
-		
 
-		informatca.getProduto().addAll(Arrays.asList(computador, impressora, mouser));
-		Esritorio.getProduto().addAll(Arrays.asList(impressora));
+		informatica.getProduto().addAll(Arrays.asList(computador, impressora, mouser));
+		escritorio.getProduto().addAll(Arrays.asList(impressora));
 		/*
 		 * musica.getProduto().addAll(Arrays.asList(guitarra, bateria, teclado));
 		 * esportes.getProduto().addAll(Arrays.asList(redeDeVolei, bola));
@@ -58,9 +67,9 @@ public class CursomcApplication implements CommandLineRunner {
 		 * escola.getProduto().addAll(Arrays.asList(caderno, caneta));
 		 */
 
-		computador.getCategoria().addAll(Arrays.asList(informatca));
-		impressora.getCategoria().addAll(Arrays.asList(informatca, Esritorio));
-		mouser.getCategoria().addAll(Arrays.asList(informatca));
+		computador.getCategoria().addAll(Arrays.asList(informatica));
+		impressora.getCategoria().addAll(Arrays.asList(informatica, escritorio));
+		mouser.getCategoria().addAll(Arrays.asList(informatica));
 		/*
 		 * caderno.getCategoria().addAll(Arrays.asList(escola));
 		 * caneta.getCategoria().addAll(Arrays.asList(escola,Esritorio));
@@ -79,9 +88,22 @@ public class CursomcApplication implements CommandLineRunner {
 		 * mouser,caderno,caneta,guitarra,bateria,vassoura,sabao,teclado,bola,
 		 * redeDeVolei));
 		 */
-		
-		categoriaRepository.saveAll(Arrays.asList(informatca, Esritorio));
+
+		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
 		produtoRepository.saveAll(Arrays.asList(computador, impressora, mouser));
+		
+		Estado estMG = new Estado(null,"Minas Gerais");
+		Estado estSP = new Estado(null, "São Paulo");
+		
+		Cidade uberlandia = new Cidade(null, "Uberlândia",estMG);
+		Cidade campinas = new Cidade(null,"Campinas",estSP);
+		Cidade saoPaulo = new Cidade(null, "São Paulo", estSP);
+		
+		estMG.getCidades().addAll(Arrays.asList(uberlandia));
+		estSP.getCidades().addAll(Arrays.asList(saoPaulo,campinas));
+		
+		estadoRepository.saveAll(Arrays.asList(estMG,estSP));
+		cidadeRepository.saveAll(Arrays.asList(uberlandia,campinas,saoPaulo));
 
 	}
 }
