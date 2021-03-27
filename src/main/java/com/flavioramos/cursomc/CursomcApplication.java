@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.flavioramos.cursomc.domain.Categoria;
 import com.flavioramos.cursomc.domain.Cidade;
+import com.flavioramos.cursomc.domain.Cliente;
+import com.flavioramos.cursomc.domain.Endereco;
 import com.flavioramos.cursomc.domain.Estado;
 import com.flavioramos.cursomc.domain.Produto;
+import com.flavioramos.cursomc.domain.enums.TipoCliente;
 import com.flavioramos.cursomc.repositories.CategoriaRepository;
 import com.flavioramos.cursomc.repositories.CidadeRepository;
+import com.flavioramos.cursomc.repositories.ClienteRepository;
+import com.flavioramos.cursomc.repositories.EnderecoRepository;
 import com.flavioramos.cursomc.repositories.EstadoRepository;
 import com.flavioramos.cursomc.repositories.ProdutoRepository;
 
@@ -27,9 +32,15 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private EstadoRepository estadoRepository;
-	
+
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -91,19 +102,28 @@ public class CursomcApplication implements CommandLineRunner {
 
 		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
 		produtoRepository.saveAll(Arrays.asList(computador, impressora, mouser));
-		
-		Estado estMG = new Estado(null,"Minas Gerais");
-		Estado estSP = new Estado(null, "São Paulo");
-		
-		Cidade uberlandia = new Cidade(null, "Uberlândia",estMG);
-		Cidade campinas = new Cidade(null,"Campinas",estSP);
-		Cidade saoPaulo = new Cidade(null, "São Paulo", estSP);
-		
-		estMG.getCidades().addAll(Arrays.asList(uberlandia));
-		estSP.getCidades().addAll(Arrays.asList(saoPaulo,campinas));
-		
-		estadoRepository.saveAll(Arrays.asList(estMG,estSP));
-		cidadeRepository.saveAll(Arrays.asList(uberlandia,campinas,saoPaulo));
 
+		Estado estMG = new Estado(null, "Minas Gerais");
+		Estado estSP = new Estado(null, "São Paulo");
+
+		Cidade uberlandia = new Cidade(null, "Uberlândia", estMG);
+		Cidade campinas = new Cidade(null, "Campinas", estSP);
+		Cidade saoPaulo = new Cidade(null, "São Paulo", estSP);
+
+		estMG.getCidades().addAll(Arrays.asList(uberlandia));
+		estSP.getCidades().addAll(Arrays.asList(saoPaulo, campinas));
+
+		estadoRepository.saveAll(Arrays.asList(estMG, estSP));
+		cidadeRepository.saveAll(Arrays.asList(uberlandia, campinas, saoPaulo));
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "363788912377", TipoCliente.PESSOA_FISICA);
+		cli1.getTelefones().addAll(Arrays.asList("1111111111", "22222222222"));
+
+		Endereco endereco1 = new Endereco(null, "Rua Flores", "300" ,"Apt 203" , "Jardim", "38220834",cli1, uberlandia);
+		Endereco endereco2 = new Endereco(null, "Avenida Matos", "105","Sala 800","Centro","38777012",cli1, saoPaulo);
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(endereco1,endereco2));
+		
 	}
 }
