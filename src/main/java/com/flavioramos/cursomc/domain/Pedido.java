@@ -1,5 +1,8 @@
 package com.flavioramos.cursomc.domain;
 
-public class Pedido {
+import java.util.Date;
 
+public class Pedido {
+	private Integer id;
+	private Date instante;
 }
