@@ -1,6 +1,5 @@
 package com.flavioramos.cursomc.services;
 
-import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

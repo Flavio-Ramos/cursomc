@@ -1,5 +1,6 @@
 package com.flavioramos.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,20 @@ import com.flavioramos.cursomc.domain.Cidade;
 import com.flavioramos.cursomc.domain.Cliente;
 import com.flavioramos.cursomc.domain.Endereco;
 import com.flavioramos.cursomc.domain.Estado;
+import com.flavioramos.cursomc.domain.Pagamento;
+import com.flavioramos.cursomc.domain.PagamentoComBoleto;
+import com.flavioramos.cursomc.domain.PagamentoComCartao;
+import com.flavioramos.cursomc.domain.Pedido;
 import com.flavioramos.cursomc.domain.Produto;
+import com.flavioramos.cursomc.domain.enums.EstadoPagamento;
 import com.flavioramos.cursomc.domain.enums.TipoCliente;
 import com.flavioramos.cursomc.repositories.CategoriaRepository;
 import com.flavioramos.cursomc.repositories.CidadeRepository;
 import com.flavioramos.cursomc.repositories.ClienteRepository;
 import com.flavioramos.cursomc.repositories.EnderecoRepository;
 import com.flavioramos.cursomc.repositories.EstadoRepository;
+import com.flavioramos.cursomc.repositories.PagamentoRepository;
+import com.flavioramos.cursomc.repositories.PedidoRepository;
 import com.flavioramos.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -42,6 +50,12 @@ public class CursomcApplication implements CommandLineRunner {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
@@ -51,55 +65,18 @@ public class CursomcApplication implements CommandLineRunner {
 
 		Categoria informatica = new Categoria(null, "Informática");
 		Categoria escritorio = new Categoria(null, "Escritório");
-		/*
-		 * Categoria musica = new Categoria(null, "Música"); Categoria esportes = new
-		 * Categoria(null, "Esportes"); Categoria limpeza = new Categoria(null,
-		 * "Limpeza"); Categoria escola = new Categoria(null, "Escola");
-		 */
+		
 		Produto computador = new Produto(null, "Computador", 2000.00);
 		Produto impressora = new Produto(null, "Impressora", 800.00);
 		Produto mouser = new Produto(null, "Mouser", 80.00);
-		/*
-		 * Produto caderno = new Produto(null, "Caderno", 35.00); Produto caneta = new
-		 * Produto(null, "Caneta", 3.00); Produto guitarra = new Produto(null,
-		 * "Guitarra", 2500.00); Produto bateria = new Produto(null, "Bateria",
-		 * 5200.00); Produto vassoura = new Produto(null, "Vassoura", 15.00); Produto
-		 * sabao = new Produto(null, "Sabão", 7.00); Produto teclado = new Produto(null,
-		 * "Teclado", 350.00); Produto bola = new Produto(null, "Bola", 95.00); Produto
-		 * redeDeVolei = new Produto(null, "Rede de Volêi", 74.00);
-		 */
-
+		
 		informatica.getProduto().addAll(Arrays.asList(computador, impressora, mouser));
 		escritorio.getProduto().addAll(Arrays.asList(impressora));
-		/*
-		 * musica.getProduto().addAll(Arrays.asList(guitarra, bateria, teclado));
-		 * esportes.getProduto().addAll(Arrays.asList(redeDeVolei, bola));
-		 * limpeza.getProduto().addAll(Arrays.asList(sabao, vassoura));
-		 * escola.getProduto().addAll(Arrays.asList(caderno, caneta));
-		 */
-
+		
 		computador.getCategoria().addAll(Arrays.asList(informatica));
 		impressora.getCategoria().addAll(Arrays.asList(informatica, escritorio));
 		mouser.getCategoria().addAll(Arrays.asList(informatica));
-		/*
-		 * caderno.getCategoria().addAll(Arrays.asList(escola));
-		 * caneta.getCategoria().addAll(Arrays.asList(escola,Esritorio));
-		 * guitarra.getCategoria().addAll(Arrays.asList(musica));
-		 * bateria.getCategoria().addAll(Arrays.asList(musica));
-		 * vassoura.getCategoria().addAll(Arrays.asList(limpeza));
-		 * sabao.getCategoria().addAll(Arrays.asList(limpeza));
-		 * teclado.getCategoria().addAll(Arrays.asList(informatca,musica));
-		 * bola.getCategoria().addAll(Arrays.asList(esportes));
-		 * redeDeVolei.getCategoria().addAll(Arrays.asList(esportes));
-		 */
-		/*
-		 * categoriaRepository.saveAll(Arrays.asList(informatca,
-		 * Esritorio,musica,esportes,limpeza,escola));
-		 * produtoRepository.saveAll(Arrays.asList(computador, impressora,
-		 * mouser,caderno,caneta,guitarra,bateria,vassoura,sabao,teclado,bola,
-		 * redeDeVolei));
-		 */
-
+		
 		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
 		produtoRepository.saveAll(Arrays.asList(computador, impressora, mouser));
 
@@ -125,5 +102,23 @@ public class CursomcApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(endereco1,endereco2));
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido pedido1 = new Pedido(null, sdf.parse("31/03/2021 23:43"), endereco1,cli1);
+		Pedido pedido2 = new Pedido(null, sdf.parse("29/03/2021 22:12"), endereco2,cli1);
+		
+		
+		Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, 6);
+		pedido1.setPagamento(pagamento1);
+		
+		Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2, sdf.parse("29/03/2021 22:12"), null);
+		pedido2.setPagamento(pagamento2);
+
+		cli1.getPedidos().addAll(Arrays.asList(pedido1,pedido2));
+		
+		
+		pedidoRepository.saveAll(Arrays.asList(pedido1,pedido2));
+		
+		pagamentoRepository.saveAll(Arrays.asList(pagamento1,pagamento2));
 	}
 }
