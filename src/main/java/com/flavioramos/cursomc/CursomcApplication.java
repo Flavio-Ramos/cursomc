@@ -13,6 +13,7 @@ import com.flavioramos.cursomc.domain.Cidade;
 import com.flavioramos.cursomc.domain.Cliente;
 import com.flavioramos.cursomc.domain.Endereco;
 import com.flavioramos.cursomc.domain.Estado;
+import com.flavioramos.cursomc.domain.ItemPedido;
 import com.flavioramos.cursomc.domain.Pagamento;
 import com.flavioramos.cursomc.domain.PagamentoComBoleto;
 import com.flavioramos.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.flavioramos.cursomc.repositories.CidadeRepository;
 import com.flavioramos.cursomc.repositories.ClienteRepository;
 import com.flavioramos.cursomc.repositories.EnderecoRepository;
 import com.flavioramos.cursomc.repositories.EstadoRepository;
+import com.flavioramos.cursomc.repositories.ItemPedidoRepository;
 import com.flavioramos.cursomc.repositories.PagamentoRepository;
 import com.flavioramos.cursomc.repositories.PedidoRepository;
 import com.flavioramos.cursomc.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -118,7 +123,20 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		
 		pedidoRepository.saveAll(Arrays.asList(pedido1,pedido2));
-		
 		pagamentoRepository.saveAll(Arrays.asList(pagamento1,pagamento2));
+		
+		
+		ItemPedido item1 = new ItemPedido(pedido1, computador, 0.00, 1, 2000.00);
+		ItemPedido item2 = new ItemPedido(pedido1, mouser, 0.00, 2, 80.00);
+		ItemPedido item3 = new ItemPedido(pedido2, impressora,100.00, 1, 800.00);
+		
+		pedido1.getItens().addAll(Arrays.asList(item1,item2));
+		pedido2.getItens().addAll(Arrays.asList(item3));
+		
+		computador.getItens().addAll(Arrays.asList(item1));
+		mouser.getItens().addAll(Arrays.asList(item2));
+		impressora.getItens().addAll(Arrays.asList(item3));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(item1,item2,item3));
 	}
 }
