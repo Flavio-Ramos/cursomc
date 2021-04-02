@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flavioramos.cursomc.domain.Pedido;
-import com.flavioramos.cursomc.exceptions.ObjectNotFoundException;
 import com.flavioramos.cursomc.repositories.PedidoRepository;
+import com.flavioramos.cursomc.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class PedidoService {

@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flavioramos.cursomc.domain.Cliente;
-import com.flavioramos.cursomc.exceptions.ObjectNotFoundException;
 import com.flavioramos.cursomc.repositories.ClienteRepository;
+import com.flavioramos.cursomc.service.exceptions.ObjectNotFoundException;
+
 import java.util.*;
 
 @Service
