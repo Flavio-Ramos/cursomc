@@ -70,6 +70,15 @@ public class CursomcApplication implements CommandLineRunner {
 
 		Categoria informatica = new Categoria(null, "Informática");
 		Categoria escritorio = new Categoria(null, "Escritório");
+		Categoria limpeza = new Categoria(null, "Limpeza");
+		Categoria alimenticios = new Categoria(null, "Alimentícios");
+		Categoria bebidas = new Categoria(null, "Bebidas");
+		Categoria esportes = new Categoria(null, "Esportes");
+		Categoria livros = new Categoria(null, "Livros");
+		Categoria instrumentosMusicais = new Categoria(null, "Instrumentos Musicais");
+		Categoria automotivos = new Categoria(null, "Automotivos");
+		Categoria cinema = new Categoria(null, "Cinema");
+		
 		
 		Produto computador = new Produto(null, "Computador", 2000.00);
 		Produto impressora = new Produto(null, "Impressora", 800.00);
@@ -82,7 +91,7 @@ public class CursomcApplication implements CommandLineRunner {
 		impressora.getCategoria().addAll(Arrays.asList(informatica, escritorio));
 		mouser.getCategoria().addAll(Arrays.asList(informatica));
 		
-		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
+		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio,limpeza,alimenticios,bebidas,esportes,livros,instrumentosMusicais,automotivos,cinema));
 		produtoRepository.saveAll(Arrays.asList(computador, impressora, mouser));
 
 		Estado estMG = new Estado(null, "Minas Gerais");
