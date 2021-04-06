@@ -1,4 +1,4 @@
-package com.flavioramos.cursomc.exceptions;
+package com.flavioramos.cursomc.service.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 
