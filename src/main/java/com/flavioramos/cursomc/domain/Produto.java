@@ -80,7 +80,7 @@ public class Produto implements Serializable {
 	}
 
 
-	public List<Categoria> getCategoria() {
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 
