@@ -68,31 +68,63 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Categoria informatica = new Categoria(null, "Informática");
-		Categoria escritorio = new Categoria(null, "Escritório");
-		Categoria limpeza = new Categoria(null, "Limpeza");
-		Categoria alimenticios = new Categoria(null, "Alimentícios");
-		Categoria bebidas = new Categoria(null, "Bebidas");
-		Categoria esportes = new Categoria(null, "Esportes");
-		Categoria livros = new Categoria(null, "Livros");
-		Categoria instrumentosMusicais = new Categoria(null, "Instrumentos Musicais");
-		Categoria automotivos = new Categoria(null, "Automotivos");
-		Categoria cinema = new Categoria(null, "Cinema");
+		Categoria cat1 = new Categoria(null, "Informática");
+		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat3 = new Categoria(null, "Cama mes e banho");
+		Categoria cat4 = new Categoria(null, "Eletrônicos");
+		Categoria cat5 = new Categoria(null, "Jardinagem");
+		Categoria cat6 = new Categoria(null, "Decoração");
+		Categoria cat7 = new Categoria(null, "Perfumaria");
 		
 		
-		Produto computador = new Produto(null, "Computador", 2000.00);
-		Produto impressora = new Produto(null, "Impressora", 800.00);
-		Produto mouser = new Produto(null, "Mouser", 80.00);
+		Produto p1 = new Produto(null, "Computador", 2000.00);
+		Produto p2 = new Produto(null, "Impressora", 800.00);
+		Produto p3 = new Produto(null, "Mouse", 80.00);
+		Produto p4 = new Produto(null, "Mesa de escritório", 300.00);
+		Produto p5 = new Produto(null, "Toalha", 50.00);
+		Produto p6 = new Produto(null, "Colcha", 200.00);
+		Produto p7 = new Produto(null, "TV true color", 1200.00);
+		Produto p8 = new Produto(null, "Roçadeira", 800.00);
+		Produto p9 = new Produto(null, "Abajour", 100.00);
+		Produto p10 = new Produto(null, "Pendente", 180.00);
+		Produto p11 = new Produto(null, "Shampoo", 90.00);
 		
-		informatica.getProduto().addAll(Arrays.asList(computador, impressora, mouser));
-		escritorio.getProduto().addAll(Arrays.asList(impressora));
-		
-		computador.getCategoria().addAll(Arrays.asList(informatica));
-		impressora.getCategoria().addAll(Arrays.asList(informatica, escritorio));
-		mouser.getCategoria().addAll(Arrays.asList(informatica));
-		
-		categoriaRepository.saveAll(Arrays.asList(informatica, escritorio,limpeza,alimenticios,bebidas,esportes,livros,instrumentosMusicais,automotivos,cinema));
-		produtoRepository.saveAll(Arrays.asList(computador, impressora, mouser));
+		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
+		cat2.getProdutos().addAll(Arrays.asList(p2));
+
+		p1.getCategorias().addAll(Arrays.asList(cat1));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
+		p3.getCategorias().addAll(Arrays.asList(cat1));
+
+		cat2.getProdutos().addAll(Arrays.asList(p2, p4));
+		cat3.getProdutos().addAll(Arrays.asList(p5, p6));
+		cat4.getProdutos().addAll(Arrays.asList(p1, p2, p3, p7));
+		cat5.getProdutos().addAll(Arrays.asList(p8));
+		cat6.getProdutos().addAll(Arrays.asList(p9, p10));
+		cat7.getProdutos().addAll(Arrays.asList(p11));
+
+		p1.getCategorias().addAll(Arrays.asList(cat1, cat4));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat4));
+		p3.getCategorias().addAll(Arrays.asList(cat1, cat4));
+		p4.getCategorias().addAll(Arrays.asList(cat2));
+		p5.getCategorias().addAll(Arrays.asList(cat3));
+		p6.getCategorias().addAll(Arrays.asList(cat3));
+		p7.getCategorias().addAll(Arrays.asList(cat4));
+		p8.getCategorias().addAll(Arrays.asList(cat5));
+		p9.getCategorias().addAll(Arrays.asList(cat6));
+		p10.getCategorias().addAll(Arrays.asList(cat6));
+		p11.getCategorias().addAll(Arrays.asList(cat7));		
+
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+
+//		Estado est1 = new Estado(null, "Minas Gerais");
+//		Estado est2 = new Estado(null, "São Paulo");
+// 
+//		
+//		categoriaRepository.saveAll(Arrays.asList(cat1, cat2,cat3,cat4,cat5,cat6,cat7));
+//		produtoRepository.saveAll(Arrays.asList(p1, p2, p3,p4, p5, p6,p7, p8, p9,p10, p11));
 
 		Estado estMG = new Estado(null, "Minas Gerais");
 		Estado estSP = new Estado(null, "São Paulo");
@@ -135,16 +167,16 @@ public class CursomcApplication implements CommandLineRunner {
 		pagamentoRepository.saveAll(Arrays.asList(pagamento1,pagamento2));
 		
 		
-		ItemPedido item1 = new ItemPedido(pedido1, computador, 0.00, 1, 2000.00);
-		ItemPedido item2 = new ItemPedido(pedido1, mouser, 0.00, 2, 80.00);
-		ItemPedido item3 = new ItemPedido(pedido2, impressora,100.00, 1, 800.00);
+		ItemPedido item1 = new ItemPedido(pedido1, p1, 0.00, 1, 2000.00);
+		ItemPedido item2 = new ItemPedido(pedido1, p3, 0.00, 2, 80.00);
+		ItemPedido item3 = new ItemPedido(pedido2, p2,100.00, 1, 800.00);
 		
 		pedido1.getItens().addAll(Arrays.asList(item1,item2));
 		pedido2.getItens().addAll(Arrays.asList(item3));
 		
-		computador.getItens().addAll(Arrays.asList(item1));
-		mouser.getItens().addAll(Arrays.asList(item2));
-		impressora.getItens().addAll(Arrays.asList(item3));
+		p1.getItens().addAll(Arrays.asList(item1));
+		p3.getItens().addAll(Arrays.asList(item2));
+		p2.getItens().addAll(Arrays.asList(item3));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(item1,item2,item3));
 	}
