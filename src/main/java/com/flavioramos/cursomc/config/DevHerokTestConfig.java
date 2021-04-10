@@ -18,7 +18,7 @@ public class DevHerokTestConfig {
 	
 	@Bean
 	public boolean instantiateDataBase() throws ParseException {
-		dbService.instatiateTestDataBase();
+		//dbService.instatiateTestDataBase();
 		return true;
 	}
 }
