@@ -42,6 +42,14 @@ public class Pedido implements Serializable {
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido>  itens = new HashSet<>();
 	
+	public double getValorTotal() {
+		double total = 0.0;
+		for(ItemPedido ip : itens) {
+			total += ip.getSubTotal();
+		}
+		return total;
+	}
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
