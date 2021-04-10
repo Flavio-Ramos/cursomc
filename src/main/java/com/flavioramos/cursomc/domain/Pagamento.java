@@ -1,6 +1,7 @@
 package com.flavioramos.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -91,5 +92,6 @@ public abstract class Pagamento implements Serializable {
 		return true;
 	}
 	
-	
+	public void preencher(Date instante) {
+	}
 }

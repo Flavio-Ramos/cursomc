@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.flavioramos.cursomc.domain.enums.EstadoPagamento;
+import com.flavioramos.cursomc.services.BoletoService;
 
 @Entity
 @JsonTypeName("pagamentoComBoleto")
@@ -45,5 +46,8 @@ public class PagamentoComBoleto extends Pagamento {
 		this.dataPagamento = dataPagamento;
 	}
 	
-	
+	public void preencher(Date instante) {
+		BoletoService boletoService = new BoletoService();
+		boletoService.preencherPagamentoComBoleto(this,instante);
+	}
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.flavioramos.cursomc.domain.ItemPedido;
-import com.flavioramos.cursomc.domain.PagamentoComBoleto;
+//import com.flavioramos.cursomc.domain.PagamentoComBoleto;
 import com.flavioramos.cursomc.domain.Pedido;
 import com.flavioramos.cursomc.domain.enums.EstadoPagamento;
 import com.flavioramos.cursomc.repositories.ItemPedidoRepository;
@@ -28,8 +28,8 @@ public class PedidoService {
 	@Autowired
 	private ProdutoService produtoService;
 	
-	@Autowired
-	private BoletoService boletoService;
+//	@Autowired
+//	private BoletoService boletoService;
 	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
@@ -48,10 +48,13 @@ public class PedidoService {
 		obj.setInstante(new Date());
 		obj.getPagamento().setEstadoPagamento(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
-		if(obj.getPagamento() instanceof PagamentoComBoleto) {
-			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
-			boletoService.preencherPagamentoComBoleto(pagto,obj.getInstante());
-		}
+		
+		
+//		if(obj.getPagamento() instanceof PagamentoComBoleto) {
+//			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
+//			boletoService.preencherPagamentoComBoleto(pagto,obj.getInstante());
+//		}
+		obj.getPagamento().preencher(obj.getInstante());
 		obj = repor.save(obj);
 		pagamentoRepository.save(obj.getPagamento());
 		for(ItemPedido ip: obj.getItens()) {
