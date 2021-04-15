@@ -2,6 +2,9 @@ package com.flavioramos.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 import com.flavioramos.cursomc.services.validation.ClienteInsert;
 
 @ClienteInsert
@@ -10,14 +13,25 @@ public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String nome;
+	
+	@NotEmpty(message="Preenchimento obrigatório!")
+	@Email(message="Email inválido!")
 	private String email;
+	
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
 	
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String logradouro;
+	
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String cep;
 	
 	private String telefone1;
@@ -26,6 +40,9 @@ public class ClienteNewDTO implements Serializable {
 	
 	private Integer cidadeId;
 	
+	@NotEmpty(message = "Preenchimento obrigatório!")
+	private String senha;
+		
 	public ClienteNewDTO() {
 	}
 
@@ -61,6 +78,14 @@ public class ClienteNewDTO implements Serializable {
 		this.tipo = tipo;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
 	public String getLogradouro() {
 		return logradouro;
 	}
