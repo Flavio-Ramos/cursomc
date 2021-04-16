@@ -20,6 +20,7 @@ import com.flavioramos.cursomc.domain.PagamentoComCartao;
 import com.flavioramos.cursomc.domain.Pedido;
 import com.flavioramos.cursomc.domain.Produto;
 import com.flavioramos.cursomc.domain.enums.EstadoPagamento;
+import com.flavioramos.cursomc.domain.enums.Perfil;
 import com.flavioramos.cursomc.domain.enums.TipoCliente;
 import com.flavioramos.cursomc.repositories.CategoriaRepository;
 import com.flavioramos.cursomc.repositories.CidadeRepository;
@@ -140,12 +141,23 @@ public class DBService {
 
 		Cliente cli1 = new Cliente(null, "Maria Silva", "prog_flavio@outlook.com", "363788912377", TipoCliente.PESSOA_FISICA, bCryptPasswordEncoder.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("1111111111", "22222222222"));
-
+		
+		Cliente cli2 = new Cliente(null, "Carolina Ferraz", "clavedefaalterada@gmail.com", "37435025003", TipoCliente.PESSOA_FISICA, bCryptPasswordEncoder.encode("321"));
+		cli2.getTelefones().addAll(Arrays.asList("333333333", "44444444444"));
+		cli2.addPerfil(Perfil.ADMIN);
+		//TODO adicionar uma verificação quando der erro no envio de emails
+		
 		Endereco endereco1 = new Endereco(null, "Rua Flores", "300" ,"Apt 203" , "Jardim", "38220834",cli1, uberlandia);
 		Endereco endereco2 = new Endereco(null, "Avenida Matos", "105","Sala 800","Centro","38777012",cli1, saoPaulo);
+		Endereco endereco3 = new Endereco(null, "Rua Floriano", "84",null,"Alameda Ísis","863482",cli2, uberlandia);
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(endereco1,endereco2));
+		
+		cli1.getEnderecos().addAll(Arrays.asList(endereco1,endereco2));
+		cli2.getEnderecos().addAll(Arrays.asList(endereco3));
+		
+		
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+		enderecoRepository.saveAll(Arrays.asList(endereco1,endereco2,endereco3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
