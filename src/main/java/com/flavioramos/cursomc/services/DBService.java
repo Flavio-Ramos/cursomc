@@ -161,7 +161,7 @@ public class DBService {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Pedido pedido1 = new Pedido(null, sdf.parse("31/03/2021 23:43"), endereco1,cli1);
+		Pedido pedido1 = new Pedido(null, sdf.parse("31/03/2021 23:43"), endereco1,cli2);
 		Pedido pedido2 = new Pedido(null, sdf.parse("29/03/2021 22:12"), endereco2,cli1);
 		
 		
@@ -171,7 +171,9 @@ public class DBService {
 		Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2, sdf.parse("29/03/2021 22:12"), null);
 		pedido2.setPagamento(pagamento2);
 
-		cli1.getPedidos().addAll(Arrays.asList(pedido1,pedido2));
+		//cli1.getPedidos().addAll(Arrays.asList(pedido1,pedido2));
+		cli1.getPedidos().addAll(Arrays.asList(pedido2));
+		cli2.getPedidos().addAll(Arrays.asList(pedido1));
 		
 		
 		pedidoRepository.saveAll(Arrays.asList(pedido1,pedido2));
